@@ -25,7 +25,7 @@ def filter_datum(fields: List[str], redaction: str,
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
-    def __init__(self, fields: List[str] = PII_FIELDS):
+    def __init__(self, fields: List[str]):
         """init method"""
         super().__init__(self.FORMAT)
         self.fields = fields
