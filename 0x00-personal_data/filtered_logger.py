@@ -34,3 +34,13 @@ def filter_datum(fields: List[str], redaction: str,
         """format method"""
         return filter_datum(self.fields, self.REDACTION,
                             super().format(record), self.SEPARATOR)
+
+    def get_logger() -> logging.Logger:
+        """returns a logging.Logger object"""
+    logger = logging.getLogger('user_data')
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
+    handler = logging.StreamHandler()
+    handler.setFormatter(RedactingFormatter())
+    logger.addHandler(handler)
+    return logger
