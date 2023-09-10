@@ -67,20 +67,25 @@ def main():
     if db is None:
         return
     cursor = db.cursor()
-    cursor.execute("SELECT * FROM users;")
-    logger = get_logger()
-    for row in cursor:
-        message = f"name={row[0]}; " + \
-                  f"email={row[1]}; " + \
-                  f"phone={row[2]}; " + \
-                  f"ssn={row[3]}; " + \
-                  f"password={row[4]}; " + \
-                  f"ip={row[5]}; " + \
-                  f"last_login={row[6]}; " + \
-                  f"user_agent={row[7]};"
-        logger.info(message)
-    cursor.close()
-    db.close()
+    try:
+        cursor.execute("SELECT * FROM users;")
+        logger = get_logger()
+        for row in cursor:
+            message = f"name={row[0]}; " + \
+                      f"email={row[1]}; " + \
+                      f"phone={row[2]}; " + \
+                      f"ssn={row[3]}; " + \
+                      f"password={row[4]}; " + \
+                      f"ip={row[5]}; " + \
+                      f"last_login={row[6]}; " + \
+                      f"user_agent={row[7]};"
+            logger.info(message)
+    except mysql.connector.Error as err:
+        # Handle SQL query error here
+        print(f"SQL Error: {err}")
+    finally:
+        cursor.close()
+        db.close()
 
 
 if __name__ == "__main__":
