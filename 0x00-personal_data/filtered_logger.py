@@ -56,11 +56,16 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
         host=os.environ.get('PERSONAL_DATA_DB_HOST', 'localhost'),
         database=os.environ.get('PERSONAL_DATA_DB_NAME'))
     return connector
+    except mysql.connector.Err as err:
+        print(f"Error: {err}")
+        return None
 
 
 def main():
     """takes no arguments and returns nothing"""
     db = get_db()
+    if db is None:
+        return
     cursor = db.cursor()
     cursor.execute("SELECT * FROM users;")
     logger = get_logger()
