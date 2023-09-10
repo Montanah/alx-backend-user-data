@@ -6,6 +6,8 @@ from typing import List
 import logging
 import mysql.connector
 import os
+import sys
+
 PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
 
 
@@ -91,3 +93,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    sys.exit(1)
