@@ -33,6 +33,7 @@ def users() -> str:
         new_user = AUTH.register_user(email, password)
         return jsonify({"email": new_user.email, "message": "user created"})
     except ValueError:
+        existing_user = AUTH.find_user_by(email=email)
         return jsonify({"message": "email already registered"}), 400
 
 
