@@ -45,7 +45,6 @@ class DB:
 
         return new_user
 
-	
     def find_user_by(self, **kwargs) -> User:
         """Method that returns the first row found in the users table
         """
