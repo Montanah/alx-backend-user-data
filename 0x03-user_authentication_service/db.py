@@ -7,6 +7,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from user import Base, User
 from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.orm.exc import NoResultFound
 
 
 class DB:
@@ -44,7 +45,17 @@ class DB:
 
         return new_user
 
+	
     def find_user_by(self, **kwargs) -> User:
         """Method that returns the first row found in the users table
         """
-        return self._session.query(User).filter_by(**kwargs).first()
+        try:
+            user = self._session.query(User).filter_by(**kwargs).first()
+            if user is not None:
+                return user
+            else:
+                return User(id=-1, email="", hashed_password="", session_id="",
+                            reset_token="")
+        except NoResultFound:
+            return User(id=-1, email="", hashed_password="", session_id="",
+                        reset_token="")
