@@ -58,3 +58,14 @@ class DB:
         except NoResultFound:
             return User(id=-1, email="", hashed_password="", session_id="",
                         reset_token="")
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """Method that takes as argument a required user_id integer
+        and arbitrary keyword arguments, and returns None
+        """
+        user = self.find_user_by(id=user_id)
+        for key, value in kwargs.items():
+            if not hasattr(user, key):
+                raise ValueError
+            setattr(user, key, value)
+        self._session.commit()
