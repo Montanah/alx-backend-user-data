@@ -40,3 +40,13 @@ class Auth:
         user = self._db.add_user(email, password)
 
         return user
+
+    def valid_login(self, email: str, password: str) -> bool:
+        """ Method that takes email and password string arguments and returns
+        a boolean
+        """
+        try:
+            user = self._db.find_user_by(email=email)
+            return user and user.is_valid_password(password)
+        except NoResultFound:
+            return False
