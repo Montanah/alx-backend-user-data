@@ -7,15 +7,7 @@ from user import User
 from sqlalchemy.orm.exc import NoResultFound
 from uuid import uuid4
 from typing import Union
-
-
-def _hash_password(password: str) -> str:
-    """ Method that takes in a password string arguments and returns
-    bytes. The returned bytes is a salted hash of the input password,
-    hashed with bcrypt.hashpw
-    """
-    import bcrypt
-    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+import bcrypt
 
 
 class Auth:
@@ -24,6 +16,13 @@ class Auth:
 
     def __init__(self):
         self._db = DB()
+
+    def _hash_password(self, password: str) -> str:
+        """ Method that takes in a password string arguments and returns
+        bytes. The returned bytes is a salted hash of the input password,
+        hashed with bcrypt.hashpw
+        """
+        return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
     def register_user(self, email: str, password: str) -> User:
         """ Method that takes mandatory email and password string
@@ -36,7 +35,7 @@ class Auth:
         except NoResultFound:
             pass
 
-        password = _hash_password(password)
+        password = self. _hash_password(password)
         user = self._db.add_user(email, password)
 
         return user
