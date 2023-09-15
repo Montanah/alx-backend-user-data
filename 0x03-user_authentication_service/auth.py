@@ -35,7 +35,7 @@ class Auth:
         except NoResultFound:
             pass
 
-        password = self. _hash_password(password)
+        password = self._hash_password(password)
         user = self._db.add_user(email, password)
 
         return user
