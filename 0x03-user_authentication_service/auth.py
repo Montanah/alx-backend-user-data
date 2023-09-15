@@ -29,16 +29,16 @@ class Auth:
         arguments and returns a User object
         """
         try:
-            user = self._db.find_user_by(email=email)
-            if user:
+            existing_user = self._db.find_user_by(email=email)
+            if existing_user:
                 raise ValueError('User {} already exists'.format(email))
         except NoResultFound:
             pass
 
         password = self._hash_password(password)
-        user = self._db.add_user(email, password)
+        new_user = self._db.add_user(email, password)
 
-        return user
+        return new_user
 
     def valid_login(self, email: str, password: str) -> bool:
         """ Method that takes email and password string arguments and returns
