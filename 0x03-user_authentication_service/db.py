@@ -6,7 +6,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from user import Base, User
-from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.exc import SQLAlchemyError, InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
 
 
@@ -53,11 +53,11 @@ class DB:
             if user is not None:
                 return user
             else:
-                return User(id=-1, email="", hashed_password="", session_id="",
-                            reset_token="")
+                raise NoResultFound("No user found matching the criteria")
         except NoResultFound:
-            return User(id=-1, email="", hashed_password="", session_id="",
-                        reset_token="")
+            raise
+        except InvalidRequestError:
+            raise
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """Method that takes as argument a required user_id integer
