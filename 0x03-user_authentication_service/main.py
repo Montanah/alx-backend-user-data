@@ -56,7 +56,7 @@ class TestAuth(unittest.TestCase):
         """
         requests.delete('http://0.0.0.0:5000/')
         requests.post('http://0.0.0.0:5000/')
-                      
+
     def test_register_user(self):
         """ Test register_user
         """
@@ -76,7 +76,7 @@ class TestAuth(unittest.TestCase):
         r = requests.post('http://0.0.0.0:5000/')
         self.assertEqual(r.status_code, 401)
         self.assertEqual(r.json(), {'message': ''})
-                                    
+
     def test_profile_unlogged(self):
         """ Test profile_unlogged
         """
@@ -85,7 +85,7 @@ class TestAuth(unittest.TestCase):
         self.assertEqual(r.json(), {'email': ''})
         r = requests.get('http://0.0.0.0:5000/')
         self.assertEqual(r.status_code, 403)
-        self.assertEqual(r.json(), {'message': ''})                                
+        self.assertEqual(r.json(), {'message': ''})
 
     def test_log_in(self):
         """ Test valid_login
@@ -99,7 +99,7 @@ class TestAuth(unittest.TestCase):
         r = requests.post('http://0.0.0.0:5000/')
         self.assertEqual(r.status_code, 403)
         self.assertEqual(r.json(), {'message': ''})
-                                    
+
     def test_profile_logged(self):
         """ Test profile_logged
         """
@@ -112,7 +112,7 @@ class TestAuth(unittest.TestCase):
         r = requests.get('http://0.0.0.0:5000/')
         self.assertEqual(r.status_code, 403)
         self.assertEqual(r.json(), {'message': ''})
-                                    
+
     def test_log_out(self):
         """ Test log_out
         """
@@ -122,7 +122,7 @@ class TestAuth(unittest.TestCase):
         r = requests.delete('http://0.0.0.0:5000/')
         self.assertEqual(r.status_code, 403)
         self.assertEqual(r.json(), {'message': ''})
-                                    
+
     def test_reset_password_token(self):
         """ Test get_reset_password_token
         """
@@ -139,7 +139,7 @@ class TestAuth(unittest.TestCase):
         r = requests.post('http://0.0.0.0:5000/')
         self.assertEqual(r.status_code, 403)
         self.assertEqual(r.json(), {'message': ''})
-                                    
+
     def test_update_password(self):
         """ Test update_password
         """
@@ -157,7 +157,7 @@ class TestAuth(unittest.TestCase):
         r = requests.put('http://0.0.0.0:5000/')
         self.assertEqual(r.status_code, 403)
         self.assertEqual(r.json(), {'message': ''})
-                                    
+
 
 EMAIL = "guillaume@holberton.io"
 PASSWD = "b4l0u"
